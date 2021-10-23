@@ -1,6 +1,13 @@
 package play.modules.guice;
 
-import com.google.inject.*;
+
+import com.google.inject.AbstractModule;
+import com.google.inject.BindingAnnotation;
+import com.google.inject.ConfigurationException;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Key;
+import com.google.inject.Module;
 import com.google.inject.name.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +18,7 @@ import play.mvc.Http;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -59,7 +67,7 @@ public class GuicePlugin extends PlayPlugin implements BeanSource {
 
       List<Class> modulesClasses = Play.classloader.getAssignableClasses(AbstractModule.class);
       for (Class moduleClass : modulesClasses) {
-        modules.add((Module) moduleClass.newInstance());
+        modules.add((Module) moduleClass.getDeclaredConstructor().newInstance());
       }
       loadInjectorFromModules();
     }
@@ -68,8 +76,8 @@ public class GuicePlugin extends PlayPlugin implements BeanSource {
     }
   }
 
-  private void loadCustomInjector(Class clazz) throws InstantiationException, IllegalAccessException {
-    final GuiceSupport gs = (GuiceSupport) clazz.newInstance();
+  private void loadCustomInjector(Class clazz) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+    final GuiceSupport gs = (GuiceSupport) clazz.getDeclaredConstructor().newInstance();
     injector = gs.configure();
     logger.info("Guice injector created: {}", clazz.getName());
   }
