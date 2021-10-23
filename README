@@ -1,5 +1,9 @@
 ## Changelog
 
+### 1.11
+
+Added support for Google Guice v5.x
+
 ### 1.10
 
 Move creation of guice injector from `onConfigurationRead()` to `onApplicationStart()`.
