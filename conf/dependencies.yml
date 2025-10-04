@@ -1,8 +1,8 @@
-self: play-guice -> guice 1.11.0
+self: play-guice -> guice 1.12.0
 
 require:
-    - play 1.5.+
-    - com.google.inject -> guice 5.0.1:
+    - play 1.9.+
+    - com.google.inject -> guice 7.0.0:
         transitive: false
 # Multibinding extension is now part of Guice core so no need to include separately.
 #    - com.google.inject.extensions -> guice-multibindings 4.2.3:

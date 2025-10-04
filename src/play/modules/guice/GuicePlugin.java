@@ -143,7 +143,7 @@ public class GuicePlugin extends PlayPlugin implements BeanSource {
 
   private boolean isInjectable(Field field) {
     return Modifier.isStatic(field.getModifiers()) && 
-        (field.isAnnotationPresent(javax.inject.Inject.class) || field.isAnnotationPresent(com.google.inject.Inject.class));
+        (field.isAnnotationPresent(jakarta.inject.Inject.class) || field.isAnnotationPresent(com.google.inject.Inject.class));
   }
 
   private void inject(Field field) throws IllegalAccessException {
